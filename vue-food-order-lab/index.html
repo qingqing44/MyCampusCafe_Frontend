@@ -1,0 +1,160 @@
+<!DOCTYPE html> 
+
+<!--Name: Tan Qing Qing-->
+<!--Matric No.: A23CS5034-->
+
+<html> 
+    <head> 
+        <title>MyCampus Café Menu</title>
+        <style>
+            #app {
+                font-family: Arial, sans-serif;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            form {
+                margin-bottom: 30px;
+                background: #f5f5f5;
+                padding: 15px;
+                border-radius: 8px;
+            }
+            form input, form select, form button {
+                margin-right: 10px;
+                padding: 8px;
+            }
+            /* Style to clearly show when you are in Edit Mode */
+            form.edit-mode {
+                background: #e6f7ff;
+                border: 1px solid #91d5ff;
+            }
+            .menu-list-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .menu-card {
+                border: 1px solid #ddd;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: #f9f9f9;                
+                width: 220px;
+                height: 200px; /* Increased slightly to handle dual buttons cleanly */             
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                box-sizing: border-box;
+            }
+            .menu-card h3 {
+                margin: 0 0 5px 0;
+                font-size: 1.1em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .menu-card p {
+                margin: 3px 0;
+                font-size: 0.9em;
+                color: #555;
+            }
+            .card-actions {
+                display: flex;
+                gap: 10px;
+            }
+            .btn-edit {
+                width: 50%;
+                padding: 5px;
+                background-color: #1890ff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn-edit:hover {
+                background-color: #40a9ff;
+            }
+            .btn-delete {
+                width: 50%;
+                padding: 5px;
+                background-color: #ff4d4d;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn-delete:hover {
+                background-color: #cc0000;
+            }
+            .btn-cancel {
+                background-color: #bfbfbf;
+                color: white;
+                border: none;
+                padding: 8px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn-cancel:hover {
+                background-color: #8c8c8c;
+            }
+        </style>  
+    </head> 
+
+    <body> 
+<div id="app"> 
+            <h2>MyCampus Café Menu</h2> 
+
+            <div v-if="!token" style="margin-bottom: 30px; background: #fff0f6; padding: 15px; border-radius: 8px; border: 1px solid #ffadd2;">
+                <h3>Staff Login Required</h3>
+                <form @submit.prevent="loginStaff" style="background: none; padding: 0; margin: 0;">
+                    <input v-model="login.username" placeholder="Username" required> 
+                    <input v-model="login.password" type="password" placeholder="Password" required> 
+                    <button type="submit" style="background-color: #eb2f5b; color: white; border: none; border-radius: 4px; cursor: pointer;">Login</button>
+                </form>
+            </div>
+
+            <div>
+                <p style="margin-bottom: 10px; color: #52c41a; font-weight: bold;">{{ message }}</p>
+                <br>
+            </div>
+
+            <form @submit.prevent="handleSubmit" :class="{ 'edit-mode': isEditMode }"> 
+                <input v-model="newMenu.menu_name" placeholder="Menu name" required> 
+                <input v-model="newMenu.category" placeholder="Category" required> 
+                <input v-model="newMenu.price" type="number" step="0.01" placeholder="Price" required> 
+                <select v-model="newMenu.availability"> 
+                    <option>Available</option> 
+                    <option>Unavailable</option> 
+                </select> 
+                
+                <button type="submit" :style="{ backgroundColor: isEditMode ? '#52c41a' : '' }">
+                    {{ isEditMode ? 'Save Changes' : 'Add Menu' }}
+                </button>
+                
+                <button type="button" v-if="isEditMode" @click="cancelEdit" class="btn-cancel">Cancel</button>
+            </form> 
+        
+            <div class="menu-list-container">
+                <div v-for="item in menuItems" :key="item.menu_id" class="menu-card"> 
+                    <div>
+                        <h3>{{ item.menu_name }}</h3> 
+                        <p>Category: {{ item.category }}</p> 
+                        <p>Price: RM {{ item.price }}</p> 
+                        <p>Status: {{ item.availability }}</p> 
+                    </div>
+
+                    <div class="card-actions">
+                        <button @click="editMenu(item)" class="btn-edit">Edit</button>             
+                        <button @click="deleteMenu(item.menu_id)" class="btn-delete">Delete</button> 
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+    
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> 
+        <script src="js/api.js"></script> 
+        <script src="js/app.js"></script>
+
+    </body> 
+</html>
