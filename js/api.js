@@ -5,7 +5,7 @@
   
 // Production API URL example 
 const API_CONFIG = { 
-    BASE_URL: "https://qingqing-labactivity11.free.je/mycampus-cafe-slim-api/public/api" 
+    BASE_URL: "https://cors-anywhere.herokuapp.com/https://qingqing-labactivity11.free.je/mycampus-cafe-slim-api/public/api" 
 }; 
   
 function getToken() { 
