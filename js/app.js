@@ -10,6 +10,7 @@ const app = Vue.createApp({
                 username: "", 
                 password: "" 
             }, 
+            token: "",
             isEditMode: false,  
             editingId: null, 
             newMenu: { 
