@@ -1,12 +1,12 @@
 // Development API URL 
-/*const API_CONFIG = { 
+const API_CONFIG = { 
     BASE_URL: "http://localhost/mycampus-cafe-slim-api/public/api" 
-}; */
+};
   
 // Production API URL example 
-const API_CONFIG = { 
+/* const API_CONFIG = { 
     BASE_URL: "https://cors-anywhere.herokuapp.com/https://qingqing-labactivity11.free.je/mycampus-cafe-slim-api/public/api" 
-}; 
+}; */
   
 function getToken() { 
     return localStorage.getItem("mycampus_token"); 
